@@ -11,23 +11,55 @@ namespace MazeLogSolver
     /// </summary>
     class DirectionMovementRule : MovementRule
     {
+        /// <summary>
+        /// Moving up is allowed
+        /// </summary>
         public bool Up { get; set; }
+
+        /// <summary>
+        /// Moving up and to the right is allowed
+        /// </summary>
         public bool UpRight { get; set; }
+
+        /// <summary>
+        /// Moving right is allowed
+        /// </summary>
         public bool Right { get; set; }
+
+        /// <summary>
+        /// Moving down and to the right is allowed
+        /// </summary>
         public bool DownRight { get; set; }
+
+        /// <summary>
+        /// Moving down is allowed
+        /// </summary>
         public bool Down { get; set; }
+
+        /// <summary>
+        /// Moving down and to the left is allowed
+        /// </summary>
         public bool DownLeft { get; set; }
+
+        /// <summary>
+        /// Moving left is allowed
+        /// </summary>
         public bool Left { get; set; }
+
+        /// <summary>
+        /// Moving up and to the left is allowed
+        /// </summary>
         public bool UpLeft { get; set; }
 
         /// <summary>
+        /// Sets the movement direction properties by the given numbers. Reference numbers below:
         ///     1
         ///   8   2
         /// 7       3
         ///   6   4
         ///     5
         /// </summary>
-        /// <param name="num"></param>
+        /// <param name="nums">The numbers for which to set the direction properties</param>
         public void SetFromNumber(params int[] nums)
         {
             foreach (int num in nums)
@@ -62,6 +94,12 @@ namespace MazeLogSolver
             }
         }
 
+        /// <summary>
+        /// Returns a list of all potential moves given the set direction properties (based on the given maze)
+        /// Note: Many of the moves may not be legal, i.e., out of bounds.
+        /// </summary>
+        /// <param name="maze">The maze</param>
+        /// <returns></returns>
         public override List<MoveDescriptor> SatisfyingMoves(AbstractMaze maze)
         {
             List<MoveDescriptor> moves = new List<MoveDescriptor>();
@@ -102,6 +140,13 @@ namespace MazeLogSolver
             return moves;
         }
 
+        /// <summary>
+        /// Determines if this rule is satisfied for the given move.
+        /// </summary>
+        /// <param name="from">From position</param>
+        /// <param name="to">To position</param>
+        /// <param name="maze">The maze</param>
+        /// <returns>Returns true if the rule was satisfied.</returns>
         public override bool RuleSatisfied(Position from, Position to, AbstractMaze maze)
         {
             bool isDiag = to.Col - from.Col == to.Row - from.Row;

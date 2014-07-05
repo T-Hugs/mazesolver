@@ -8,6 +8,9 @@ namespace MazeLogSolver.Rules.Common
 {
     static class ChessRules
     {
+        /// <summary>
+        /// Rule that models standard knight movement
+        /// </summary>
         public static MovementRule KnightRule
         {
             get

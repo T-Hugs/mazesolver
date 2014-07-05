@@ -8,6 +8,9 @@ namespace MazeLogSolver.Rules.Common
 {
     static class DirectionRules
     {
+        /// <summary>
+        /// Rule that allows movement in the horizontal or vertical directions
+        /// </summary>
         public static DirectionMovementRule RanksAndFiles
         {
             get

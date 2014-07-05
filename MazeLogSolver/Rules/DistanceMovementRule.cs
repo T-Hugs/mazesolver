@@ -11,8 +11,19 @@ namespace MazeLogSolver
     /// </summary>
     class DistanceMovementRule : MovementRule
     {
+        /// <summary>
+        /// The minimum number of spaces allowed to move in the upward direction
+        /// </summary>
         public int UpLeast { get; set; }
+
+        /// <summary>
+        /// The maximum number of spaces allowed to move in the upward direction
+        /// </summary>
         public int UpMost { get; set; }
+
+        /// <summary>
+        /// When moving in the upward direction, the multiple of spaces required to move
+        /// </summary>
         public int UpMultiple { get; set; }
         public int DownLeast { get; set; }
         public int DownMost { get; set; }
@@ -24,6 +35,10 @@ namespace MazeLogSolver
         public int RightMost { get; set; }
         public int RightMultiple { get; set; }
                 
+        /// <summary>
+        /// Set the minimum number of squares to move in all directions
+        /// </summary>
+        /// <param name="val">The minimum number of squares</param>
         public void SetLeast(int val)
         {
             UpLeast = val;
@@ -32,6 +47,10 @@ namespace MazeLogSolver
             RightLeast = val;
         }
 
+        /// <summary>
+        /// Set the maximum number of squares to move in all directions
+        /// </summary>
+        /// <param name="val">The maximum number of squares</param>
         public void SetMost(int val)
         {
             UpMost = val;
@@ -40,6 +59,10 @@ namespace MazeLogSolver
             RightMost = val;
         }
 
+        /// <summary>
+        /// Set the multiple for the number of squares to move in all directions
+        /// </summary>
+        /// <param name="val">The multiple for the number of squares</param>
         public void SetMultiple(int val)
         {
             UpMultiple = val;
@@ -49,6 +72,7 @@ namespace MazeLogSolver
         }
 
         /// <summary>
+        /// Set all properties given a string in the format described below:
         /// uleast,umost,umultiple|dleast,dmost,dmultiple|lleast,lmost,lmultiple|rleast,rmost,rmultiple
         /// </summary>
         /// <param name="s"></param>
@@ -73,6 +97,13 @@ namespace MazeLogSolver
             RightMultiple = int.Parse(r[2]);
         }
 
+        /// <summary>
+        /// Determines if this rule is satisfied for the given move.
+        /// </summary>
+        /// <param name="from">From position</param>
+        /// <param name="to">To position</param>
+        /// <param name="maze">The maze</param>
+        /// <returns>Returns true if the rule was satisfied.</returns>
         public override bool RuleSatisfied(Position from, Position to, AbstractMaze maze)
         {
             int downDist = to.Row - from.Row;
@@ -110,6 +141,13 @@ namespace MazeLogSolver
             return true;
         }
 
+        /// <summary>
+        /// Returns a list of all potential moves given the set distance properties (based on the given maze)
+        /// Note: Many of the moves may not be legal, i.e., out of bounds.
+        /// Todo: make this more linq-y
+        /// </summary>
+        /// <param name="maze">The maze</param>
+        /// <returns></returns>
         public override List<MoveDescriptor> SatisfyingMoves(AbstractMaze maze)
         {
             List<MoveDescriptor> moves = new List<MoveDescriptor>();
@@ -158,7 +196,6 @@ namespace MazeLogSolver
                 }
             }
             return moves;
-        }
-        
+        }   
     }
 }
